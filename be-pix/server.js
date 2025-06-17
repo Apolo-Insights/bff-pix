@@ -4,19 +4,8 @@ const { QrCodePix } = require("qrcode-pix");
 const app = express();
 const port = 7777;
 
-// Configuração CORS específica para suportar HTTPS
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Libera acesso de qualquer origem segura
-    if (!origin || origin.startsWith('https')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Blocked by CORS policy'));
-    }
-  }
-};
-
-app.use(cors(corsOptions));
+// Permitir todas as origens sem restrições
+app.use(cors());
 
 app.get("/qrcode", async (req, res) => {
   const { value } = req.query;
