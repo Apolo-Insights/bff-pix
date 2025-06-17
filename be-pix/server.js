@@ -1,11 +1,22 @@
 const express = require("express");
-const cors = require("cors"); 
+const cors = require("cors");
 const { QrCodePix } = require("qrcode-pix");
 const app = express();
 const port = 7777;
 
+// Configuração CORS específica para suportar HTTPS
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Libera acesso de qualquer origem segura
+    if (!origin || origin.startsWith('https')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS policy'));
+    }
+  }
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.get("/qrcode", async (req, res) => {
   const { value } = req.query;
@@ -23,5 +34,5 @@ app.get("/qrcode", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`SERVER RUNNING AT: http://localhost:${port}`);
+  console.log(`SERVER RUNNING AT: http://apollo-pix-deploy-dwczd2h5bbdncchb.eastus-01.azurewebsites.net:${port}`);
 });
