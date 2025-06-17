@@ -2,9 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const { QrCodePix } = require("qrcode-pix");
 const app = express();
-const port = 7777;
+const port = process.env.PORT || 7777;
 
-// Permitir todas as origens sem restrições
 app.use(cors());
 
 app.get("/qrcode", async (req, res) => {
@@ -23,5 +22,5 @@ app.get("/qrcode", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`SERVER RUNNING AT: http://apollo-pix-deploy-dwczd2h5bbdncchb.eastus-01.azurewebsites.net:${port}`);
+  console.log(`Servidor rodando na porta ${port}`);
 });
